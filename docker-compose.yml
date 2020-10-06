@@ -20,7 +20,7 @@ services:
 
   app:
     container_name: nextcloud
-    # image: nextcloud:apache
+    image: nextcloud-kitty
     build:
       context: .
     restart: always
