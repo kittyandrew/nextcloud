@@ -33,6 +33,7 @@ services:
       - nextcloud.env
     depends_on:
       - db
+      - redis
 
 volumes:
   db:
