@@ -2,10 +2,8 @@ FROM nextcloud:apache as pdftron-builder
 # Building PDFTron
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
- # Build layer for PDF Compression Extension (#TODO)
- # @Important: remove later
- wget git build-essential cmake swig \ 
- \
+ # Build dependencies
+ wget git build-essential cmake swig \
  # Install PDFTron package (Optimization Pipeline)
  && mkdir /pdftron \
  && cd /pdftron \
@@ -35,6 +33,8 @@ FROM nextcloud:apache as main
 #    (see: https://github.com/PaulLereverend/NextcloudVideo_Converter)
 # Binaries from: https://hub.docker.com/r/mwader/static-ffmpeg
 COPY --from=mwader/static-ffmpeg:4.3.1-1 /ffmpeg /usr/local/bin/
+# COPY --from=mwader/static-ffmpeg:4.3.1-1 /ffprobe /usr/local/bin/
+# COPY --from=mwader/static-ffmpeg:4.3.1-1 /qt-faststart /usr/local/bin/
 # Compatibility layer for PDF Compression Extension
 #    (see: #TODO)
 COPY --from=pdftron-builder /pdftron/PDFNetWrappers/PDFNetC/Lib /pdftron
