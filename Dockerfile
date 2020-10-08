@@ -33,6 +33,10 @@ FROM nextcloud:apache as main
 #    (see: https://github.com/PaulLereverend/NextcloudVideo_Converter)
 # Binaries from: https://hub.docker.com/r/mwader/static-ffmpeg
 COPY --from=mwader/static-ffmpeg:4.3.1-1 /ffmpeg /usr/local/bin/
+# @Note: you can copy all that binaries in one layer, but if they
+#        are used for different things, it's better to add them separately.
+#        As practial tests show, adding 2 more COPY layers result in <0Mb
+#        difference (if any) for result image (specifically "virtual" memory)
 # COPY --from=mwader/static-ffmpeg:4.3.1-1 /ffprobe /usr/local/bin/
 # COPY --from=mwader/static-ffmpeg:4.3.1-1 /qt-faststart /usr/local/bin/
 # Compatibility layer for PDF Compression Extension
