@@ -1,4 +1,4 @@
-FROM nextcloud:apache as pdftron-builder
+FROM nextcloud:stable as pdftron-builder
 # Building PDFTron
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
@@ -28,7 +28,7 @@ RUN apt-get update \
  && rm -rf Build
 
 
-FROM nextcloud:apache as main
+FROM nextcloud:stable as main
 # Compatibility layer for Video Converter Extension
 #    (see: https://github.com/PaulLereverend/NextcloudVideo_Converter)
 # Binaries from: https://hub.docker.com/r/mwader/static-ffmpeg
