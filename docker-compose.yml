@@ -9,11 +9,12 @@ services:
     volumes:
       - db:/var/lib/mysql
     env_file:
-      - nextcloud.env
+      - .env
 
   redis:
     container_name: nextcloud-redis
     image: redis
+    command: "redis-server --requirepass ${REDIS_HOST_PASSWORD}"
     restart: always
     volumes:
       - redis:/data
@@ -30,7 +31,7 @@ services:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
     env_file:
-      - nextcloud.env
+      - .env
     depends_on:
       - db
       - redis
