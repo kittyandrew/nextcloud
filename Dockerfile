@@ -1,12 +1,10 @@
 FROM nextcloud:stable as pdftron-builder
-# Building PDFTron
+# Building PDFTron package (Optimization Pipeline)
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
  # Build dependencies
  wget git build-essential cmake swig \
- # Install PDFTron package (Optimization Pipeline)
- && mkdir /pdftron \
- && cd /pdftron \
+ && cd / \
  # Clone public wrappers repo
  && git clone https://github.com/PDFTron/PDFNetWrappers \
  && cd PDFNetWrappers/PDFNetC \
@@ -24,7 +22,6 @@ RUN apt-get update \
  && cmake -D BUILD_PDFNetPHP=ON .. \
  && make \
  && make install \
- && php --ini \
  && cd .. \
  && rm -rf Build
  # && rm -rf /var/lib/apt/lists/* \
@@ -46,11 +43,7 @@ COPY --from=mwader/static-ffmpeg:4.3.1-1 /ffmpeg /usr/local/bin/
 
 # Compatibility layer for PDF Compression extension
 #    (see: #TODO)
-COPY --from=pdftron-builder /pdftron/PDFNetWrappers/PDFNetC/Lib /pdftron
-RUN mkdir -p /usr/local/lib/php/extensions/no-debug-non-zts-20190902 \
- && cp /pdftron/PDFNetPHP.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/PDFNetPHP.so
-# RUN chmod +x /pdftron/PDFNetPHP.so
-COPY php.ini /usr/local/etc/php/php.ini
+COPY --from=pdftron-builder /PDFNetWrappers/PDFNetC/Lib /pdftron
 
 # Compatibility layer for ocDownloader (direct download extension)
 #    (see: https://github.com/e-alfred/ocdownloader)
