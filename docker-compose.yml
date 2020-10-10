@@ -19,11 +19,11 @@ services:
     volumes:
       - redis:/data
 
-  mautils:
-    container_name: nextcloud-mautils
-    image: nextcloud-mautils
+  mautoolz:
+    container_name: nextcloud-mautoolz
+    image: nextcloud-mautoolz
     build:
-        context: mautils
+      context: mautoolz
     restart: always
 
   app:
@@ -37,7 +37,7 @@ services:
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
-      - MAUTILS_HOST=mautils
+      - MAUTILS_HOST=mautoolz
     env_file:
       - .env
     depends_on:
