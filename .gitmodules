@@ -1,0 +1,3 @@
+[submodule "mautoolz"]
+	path = mautoolz
+	url = git@github.com:kittyandrew/mautoolz.git

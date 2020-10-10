@@ -43,7 +43,7 @@ services:
     depends_on:
       - db
       - redis
-      - mautils
+      - mautoolz
 
 volumes:
   db:
