@@ -1,33 +1,3 @@
-FROM nextcloud:stable as pdftron-builder
-# Building PDFTron package (Optimization Pipeline)
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
- # Build dependencies
- wget git build-essential cmake swig \
- && cd / \
- # Clone public wrappers repo
- && git clone https://github.com/PDFTron/PDFNetWrappers \
- && cd PDFNetWrappers/PDFNetC \
- # Download and unpack PDFNetC
- #    see: https://www.pdftron.com/documentation/python/get-started/python3/linux
- && wget http://www.pdftron.com/downloads/PDFNetC64.tar.gz \
- && tar xvzf PDFNetC64.tar.gz \
- && mv PDFNetC64/Headers/ . \
- && mv PDFNetC64/Lib/ . \
- && rm PDFNetC64.tar.gz \
- # Compile PDFTron
- && cd .. \
- && mkdir Build \
- && cd Build \
- && cmake -D BUILD_PDFNetPHP=ON .. \
- && make \
- && make install \
- && cd .. \
- && rm -rf Build
- # && rm -rf /var/lib/apt/lists/* \
- # && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
-
-
 FROM nextcloud:stable as main
 
 # Compatibility layer for Video Converter extension
@@ -40,10 +10,6 @@ COPY --from=mwader/static-ffmpeg:4.3.1-1 /ffmpeg /usr/local/bin/
 #        difference (if any) for result image (specifically "virtual" memory)
 # COPY --from=mwader/static-ffmpeg:4.3.1-1 /ffprobe /usr/local/bin/
 # COPY --from=mwader/static-ffmpeg:4.3.1-1 /qt-faststart /usr/local/bin/
-
-# Compatibility layer for PDF Compression extension
-#    (see: #TODO)
-COPY --from=pdftron-builder /PDFNetWrappers/PDFNetC/Lib /pdftron
 
 # Compatibility layer for ocDownloader (direct download extension)
 #    (see: https://github.com/e-alfred/ocdownloader)

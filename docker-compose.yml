@@ -19,6 +19,13 @@ services:
     volumes:
       - redis:/data
 
+  mautils:
+    container_name: nextcloud-mautils
+    image: nextcloud-mautils
+    build:
+        context: mautils
+    restart: always
+
   app:
     container_name: nextcloud
     image: nextcloud-kitty
@@ -30,11 +37,13 @@ services:
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
+      - MAUTILS_HOST=mautils
     env_file:
       - .env
     depends_on:
       - db
       - redis
+      - mautils
 
 volumes:
   db:

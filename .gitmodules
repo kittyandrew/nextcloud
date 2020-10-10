@@ -1,0 +1,3 @@
+[submodule "mautils"]
+	path = mautils
+	url = git@github.com:kittyandrew/mautils.git
