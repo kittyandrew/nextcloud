@@ -1,4 +1,4 @@
-FROM nextcloud:stable as main
+FROM nextcloud:latest as main
 
 # Compatibility layer for Video Converter extension
 #    (see: https://github.com/PaulLereverend/NextcloudVideo_Converter)
