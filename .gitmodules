@@ -1,3 +1,6 @@
 [submodule "mautoolz"]
 	path = mautoolz
 	url = git@github.com:kittyandrew/mautoolz.git
+[submodule "nextcloud-mautoolz"]
+	path = nextcloud-mautoolz
+	url = git@github.com:kittyandrew/nextcloud-mautoolz.git
