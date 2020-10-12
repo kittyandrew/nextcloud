@@ -26,6 +26,13 @@ services:
       context: mautoolz
     restart: always
 
+  mautoolz-convert:
+    container_name: nextcloud-mautoolz-convert
+    image: nextcloud-mautoolz-convert
+    build:
+      context: mautoolz-convert
+    restart: always
+
   app:
     container_name: nextcloud
     image: nextcloud-kitty
@@ -37,13 +44,15 @@ services:
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
-      - MAUTILS_HOST=mautoolz
+      - MAUTOOLZ_HOST=mautoolz
+      - MAUTOOLZ_CONVERT_HOST=mautoolz-convert
     env_file:
       - .env
     depends_on:
       - db
       - redis
       - mautoolz
+      - mautoolz-convert
 
 volumes:
   db:

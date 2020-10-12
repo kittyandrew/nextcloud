@@ -4,3 +4,6 @@
 [submodule "nextcloud-mautoolz"]
 	path = nextcloud-mautoolz
 	url = git@github.com:kittyandrew/nextcloud-mautoolz.git
+[submodule "mautoolz-convert"]
+	path = mautoolz-convert
+	url = git@github.com:kittyandrew/mautoolz-convert.git
