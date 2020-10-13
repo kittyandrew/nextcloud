@@ -1,12 +1,12 @@
 # nextcloud
 ### Features
 - Ultimately easy to deploy  
-- Download Mautoolz extention from the nextcloud app store (Coming soon..)
+- Supports Mautoolz extention ([Coming soon to nextcloud app store..](./nextcloud-mautoolz))
     * Compression of pdf files
     * Conversion of documents (.doc, .docx, .odt, etc) to pdf
     * Conversion of epub to pdf (`unstable`)
-- This build has ffmpeg installed (Supports (Video converter)[https://apps.nextcloud.com/apps/video_converter])
-- This build has youtube-dl installed (Supports (ocDownloader)[https://apps.nextcloud.com/apps/ocdownloader])
+- This build has ffmpeg installed (Supports [Video converter](https://apps.nextcloud.com/apps/video_converter))
+- This build has youtube-dl installed (Supports [ocDownloader](https://apps.nextcloud.com/apps/ocdownloader))
   
 ### Requirements
 You need to have:
@@ -39,7 +39,7 @@ docker-compose up -d --build
 ```
   
 ### License
-(LICENSE)[./LICENSE]  
+[LICENSE](./LICENSE)  
 
 ### Donation
 BTC: `1GWbPkBJgugcu3pRf8HFgq4GqJ7QCazwNS`
