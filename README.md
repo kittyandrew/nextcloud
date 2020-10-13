@@ -1,7 +1,7 @@
 # nextcloud
 ### Features
 - Ultimately easy to deploy  
-- Supports Mautoolz extention ([Coming soon to nextcloud app store..](./nextcloud-mautoolz))
+- Supports Mautoolz extention ([Coming soon to nextcloud app store..](https://github.com/kittyandrew/nextcloud-mautoolz))
     * Compression of pdf files
     * Conversion of documents (.doc, .docx, .odt, etc) to pdf
     * Conversion of epub to pdf (`unstable`)
