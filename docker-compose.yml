@@ -46,6 +46,7 @@ services:
     restart: always
     volumes:
       - nextcloud:/var/www/html
+      - /srv/transmission/downloads/complete:/torrent
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
