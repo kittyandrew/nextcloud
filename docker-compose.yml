@@ -4,8 +4,8 @@ services:
   db:
     container_name: nextcloud-db
     image: mariadb
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - db:/var/lib/mysql
     env_file:
@@ -14,8 +14,8 @@ services:
   redis:
     container_name: nextcloud-redis
     image: redis
-    command: "redis-server --requirepass ${REDIS_HOST_PASSWORD}"
     restart: always
+    command: "redis-server --requirepass ${REDIS_HOST_PASSWORD}"
     volumes:
       - redis:/data
 
@@ -27,23 +27,23 @@ services:
   mautoolz:
     container_name: nextcloud-mautoolz
     image: nextcloud-mautoolz
+    restart: always
     build:
       context: mautoolz
-    restart: always
 
   mautoolz-convert:
     container_name: nextcloud-mautoolz-convert
     image: nextcloud-mautoolz-convert
+    restart: always
     build:
       context: mautoolz-convert
-    restart: always
 
   app:
     container_name: nextcloud
     image: nextcloud-kitty
+    restart: always
     build:
       context: .
-    restart: always
     volumes:
       - nextcloud:/var/www/html
       - /srv/transmission/downloads/complete:/torrent
