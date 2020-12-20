@@ -1,4 +1,4 @@
-FROM nextcloud:latest as main
+FROM nextcloud:fpm as main
 
 # Compatibility layer for Video Converter extension
 #    (see: https://github.com/PaulLereverend/NextcloudVideo_Converter)
@@ -27,13 +27,22 @@ RUN curl -Lo /usr/local/bin/youtube-dl https://yt-dl.org/downloads/latest/youtub
  && apt-get install -y --no-install-recommends \
     python3 \
     smbclient \
+    sudo \
  # creating system scope alias for python3 as python
  && update-alternatives --install /usr/bin/python python /usr/bin/python3 1000 \
  # clean up after installs
  && rm -rf /var/lib/apt/lists/* \
  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
 
+# Setting higher limits for php: improving performance (not proven).
+RUN echo "memory_limit = 2560M" >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini \
+ && echo "pm.max_children = 25" >> /usr/local/etc/php-fpm.d/docker.conf \
+ && echo "pm.start_servers = 10" >> /usr/local/etc/php-fpm.d/docker.conf \
+ && echo "pm.min_spare_servers = 5" >> /usr/local/etc/php-fpm.d/docker.conf \
+ && echo "pm.max_spare_servers = 20" >> /usr/local/etc/php-fpm.d/docker.conf \
+ && echo "pm.max_requests = 500" >> /usr/local/etc/php-fpm.d/docker.conf
+
 # Special layer(s) to handle cron job inside docker
 #    (see: https://docs.nextcloud.com/server/19/admin_manual/configuration_server/background_jobs_configuration.html)
 HEALTHCHECK --interval=5m --timeout=60s \
-  CMD curl http://localhost/cron.php || exit 1
+  CMD sudo -u www-data php cron.php || exit 1
